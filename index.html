@@ -1,0 +1,1414 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>어버이날 💌</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Nanum+Pen+Script&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Nanum Myeongjo", serif;
+        min-height: 100vh;
+        background: #fff4f0;
+        background-image:
+          radial-gradient(circle at 20% 20%, #ffe8e8 0%, transparent 50%),
+          radial-gradient(circle at 80% 80%, #fff0e8 0%, transparent 50%),
+          radial-gradient(circle at 60% 10%, #ffe0f0 0%, transparent 40%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 36px 20px 80px;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: radial-gradient(#f5b8c0 1.2px, transparent 1.2px);
+        background-size: 26px 26px;
+        opacity: 0.18;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* ── Title ── */
+      .title {
+        font-size: clamp(1.55rem, 5vw, 2.3rem);
+        font-weight: 800;
+        color: #a81828;
+        letter-spacing: 0.03em;
+        text-align: center;
+        margin-bottom: 6px;
+        opacity: 0;
+        animation: riseIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.2s;
+      }
+      .tagline {
+        font-size: 0.95rem;
+        color: #c07070;
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeUp 0.7s ease forwards 0.8s;
+      }
+
+      /* ── Bouquet ── */
+      .bouquet-svg {
+        width: min(350px, 94vw);
+        display: block;
+        opacity: 0;
+        animation: fadeIn 0.1s ease forwards 0.4s;
+      }
+
+      /* Stem draw-on */
+      .stem {
+        stroke-dasharray: 300;
+        stroke-dashoffset: 300;
+      }
+      .leaf {
+        stroke-dasharray: 120;
+        stroke-dashoffset: 120;
+      }
+
+      .c1 .stem {
+        animation: draw 0.9s ease forwards 0.5s;
+      }
+      .c2 .stem {
+        animation: draw 0.9s ease forwards 0.65s;
+      }
+      .c3 .stem {
+        animation: draw 0.9s ease forwards 0.55s;
+      }
+      .c4 .stem {
+        animation: draw 0.9s ease forwards 0.7s;
+      }
+      .c5 .stem {
+        animation: draw 0.9s ease forwards 0.6s;
+      }
+
+      .c1 .leaf {
+        animation: draw 0.5s ease forwards 1.3s;
+      }
+      .c2 .leaf {
+        animation: draw 0.5s ease forwards 1.5s;
+      }
+      .c3 .leaf {
+        animation: draw 0.5s ease forwards 1.4s;
+      }
+      .c4 .leaf {
+        animation: draw 0.5s ease forwards 1.6s;
+      }
+      .c5 .leaf {
+        animation: draw 0.5s ease forwards 1.5s;
+      }
+
+      /* Bloom */
+      .flower {
+        transform-box: fill-box;
+        transform-origin: center bottom;
+        transform: scale(0) rotate(-20deg);
+      }
+      .c1 .flower {
+        animation: bloom 0.6s cubic-bezier(0.34, 1.6, 0.64, 1) forwards 1.8s;
+      }
+      .c2 .flower {
+        animation: bloom 0.6s cubic-bezier(0.34, 1.6, 0.64, 1) forwards 2s;
+      }
+      .c3 .flower {
+        animation: bloom 0.6s cubic-bezier(0.34, 1.6, 0.64, 1) forwards 1.9s;
+      }
+      .c4 .flower {
+        animation: bloom 0.6s cubic-bezier(0.34, 1.6, 0.64, 1) forwards 2.05s;
+      }
+      .c5 .flower {
+        animation: bloom 0.6s cubic-bezier(0.34, 1.6, 0.64, 1) forwards 1.95s;
+      }
+
+      /* Sway */
+      .c1 {
+        transform-box: fill-box;
+        transform-origin: center 100%;
+        animation: sway1 4.2s ease-in-out infinite 2.6s;
+      }
+      .c2 {
+        transform-box: fill-box;
+        transform-origin: center 100%;
+        animation: sway2 3.8s ease-in-out infinite 2.8s;
+      }
+      .c3 {
+        transform-box: fill-box;
+        transform-origin: center 100%;
+        animation: sway1 5.1s ease-in-out infinite 2.7s;
+      }
+      .c4 {
+        transform-box: fill-box;
+        transform-origin: center 100%;
+        animation: sway2 4.4s ease-in-out infinite 2.9s;
+      }
+      .c5 {
+        transform-box: fill-box;
+        transform-origin: center 100%;
+        animation: sway1 3.7s ease-in-out infinite 2.75s;
+      }
+
+      @keyframes draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      @keyframes bloom {
+        to {
+          transform: scale(1) rotate(0deg);
+        }
+      }
+      @keyframes riseIn {
+        from {
+          opacity: 0;
+          transform: translateY(-24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes sway1 {
+        0%,
+        100% {
+          transform: rotate(-3.5deg);
+        }
+        50% {
+          transform: rotate(3deg);
+        }
+      }
+      @keyframes sway2 {
+        0%,
+        100% {
+          transform: rotate(3.5deg);
+        }
+        50% {
+          transform: rotate(-3deg);
+        }
+      }
+
+      /* ── Envelope / Letter ── */
+      .letter-section {
+        margin-top: 4px;
+        width: min(370px, 94vw);
+        opacity: 0;
+        animation: fadeUp 0.8s ease forwards 2.7s;
+      }
+
+      .hint {
+        text-align: center;
+        font-size: 0.85rem;
+        color: #b06868;
+        margin-bottom: 12px;
+        transition: opacity 0.4s ease;
+        animation: hintPulse 2.8s ease-in-out infinite 3.5s;
+      }
+      @keyframes hintPulse {
+        0%,
+        100% {
+          opacity: 0.45;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* --- Envelope shell --- */
+      .env-shell {
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        border-radius: 0 0 6px 6px;
+        box-shadow:
+          0 8px 32px rgba(140, 50, 50, 0.18),
+          0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .env-shell:hover {
+        box-shadow:
+          0 12px 40px rgba(140, 50, 50, 0.22),
+          0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Flap */
+      .flap-perspective {
+        perspective: 500px;
+        position: relative;
+        z-index: 10;
+      }
+      .flap {
+        width: 100%;
+        transform-origin: top center;
+        transform-style: preserve-3d;
+        transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .env-shell.open .flap {
+        transform: rotateX(-170deg);
+      }
+      .flap svg {
+        display: block;
+        width: 100%;
+      }
+
+      /* Body */
+      .env-body {
+        background: linear-gradient(180deg, #ede0c4 0%, #f5ecd8 50%);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* diagonal stripe deco */
+      .env-body::before,
+      .env-body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: #d8c898;
+      }
+      .env-body::before {
+        left: 28%;
+        transform: rotate(16deg);
+        transform-origin: top center;
+      }
+      .env-body::after {
+        right: 28%;
+        transform: rotate(-16deg);
+        transform-origin: top center;
+      }
+
+      /* Seal */
+      .seal {
+        position: relative;
+        z-index: 5;
+        padding: 24px 0;
+        transition:
+          opacity 0.35s ease 0.2s,
+          transform 0.35s ease 0.2s;
+      }
+      .env-shell.open .seal {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      /* Letter slip — sits below envelope, grows downward on open */
+      .letter-slip-wrap {
+        position: relative;
+        z-index: 1;
+        margin: 0 14px;
+        overflow: hidden;
+        max-height: 46px; /* shows just the paper top edge */
+        transition:
+          max-height 1s cubic-bezier(0.34, 1.05, 0.64, 1),
+          box-shadow 0.5s ease;
+        border-radius: 0 0 4px 4px;
+        box-shadow: 0 2px 10px rgba(80, 30, 30, 0.08);
+      }
+      .env-shell.open .letter-slip-wrap {
+        max-height: 700px;
+        box-shadow: 0 8px 28px rgba(80, 30, 30, 0.16);
+      }
+
+      /* Paper card */
+      .letter-slip {
+        background: #fffdf8;
+        border: 1px solid #e2d0b8;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        position: relative;
+      }
+
+      /* Folded paper top edge (visible before open) */
+      .letter-slip::before {
+        content: "";
+        display: block;
+        height: 46px;
+        background: linear-gradient(180deg, #f8f0e4 0%, #fffdf8 100%);
+        border-bottom: 1px dashed #e0c8a8;
+      }
+
+      .letter-slip-inner {
+        padding: 22px 22px 28px;
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+          opacity 0.7s ease 0.55s,
+          transform 0.7s ease 0.55s;
+      }
+      .env-shell.open .letter-slip-inner {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Env bottom */
+      .env-bottom {
+        display: block;
+        width: 100%;
+        margin-top: -1px;
+      }
+
+      /* Letter typography */
+      .l-deco {
+        position: absolute;
+        inset: 9px;
+        border: 1px dashed #d8c0a0;
+        border-radius: 2px;
+        pointer-events: none;
+      }
+      .l-date {
+        font-family: "Nanum Pen Script", cursive;
+        font-size: 0.95rem;
+        color: #a07060;
+        text-align: right;
+        margin-bottom: 18px;
+      }
+      .l-greeting {
+        font-family: "Nanum Pen Script", cursive;
+        font-size: 1.45rem;
+        color: #a01828;
+        margin-bottom: 18px;
+      }
+      .l-body {
+        font-family: "Nanum Pen Script", cursive;
+        font-size: 1.1rem;
+        color: #3a1c1c;
+        line-height: 2.1;
+        margin-bottom: 20px;
+      }
+      .l-body p + p {
+        margin-top: 10px;
+      }
+      .l-closing {
+        font-family: "Nanum Pen Script", cursive;
+        font-size: 1.1rem;
+        color: #7a2832;
+        text-align: right;
+        line-height: 2.1;
+      }
+      .l-heart {
+        color: #c83040;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <h1 class="title">어버이날을 축하합니다 💐</h1>
+      <p class="tagline">부모님께 감사한 마음을 전해요</p>
+
+      <!-- ═══ Carnation Bouquet SVG ═══ -->
+      <svg
+        class="bouquet-svg"
+        viewBox="0 0 350 275"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <!-- Ribbon / bow at base -->
+        <path
+          d="M160,262 C148,252 132,258 138,265 C142,270 158,265 168,265 C178,265 194,270 198,265 C204,258 188,252 176,262"
+          fill="#E06878"
+          stroke="#C04860"
+          stroke-width=".8"
+        />
+        <ellipse
+          cx="168"
+          cy="263"
+          rx="13"
+          ry="9"
+          fill="#F07888"
+          stroke="#D05870"
+          stroke-width=".8"
+        />
+        <circle cx="168" cy="263" r="4.5" fill="#C03050" />
+
+        <!-- ── CARNATION 1 (far left) ── -->
+        <g class="c1">
+          <path
+            class="stem"
+            d="M162,260 C158,242 104,222 74,172"
+            fill="none"
+            stroke="#4E7242"
+            stroke-width="2.8"
+            stroke-linecap="round"
+          />
+          <path
+            class="leaf"
+            d="M110,222 C93,213 84,200 96,193"
+            fill="none"
+            stroke="#639A52"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            class="leaf"
+            d="M126,208 C137,198 141,186 130,181"
+            fill="none"
+            stroke="#639A52"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <g class="flower">
+            <ellipse
+              cx="74"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#CB2440"
+              transform="rotate(0,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#D83050"
+              transform="rotate(45,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#CB2440"
+              transform="rotate(90,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#D83050"
+              transform="rotate(135,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#CB2440"
+              transform="rotate(180,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#D83050"
+              transform="rotate(225,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#CB2440"
+              transform="rotate(270,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#D83050"
+              transform="rotate(315,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#E84062"
+              transform="rotate(22.5,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#F05272"
+              transform="rotate(67.5,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#E84062"
+              transform="rotate(112.5,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#F05272"
+              transform="rotate(157.5,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#E84062"
+              transform="rotate(202.5,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#F05272"
+              transform="rotate(247.5,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#E84062"
+              transform="rotate(292.5,74,172)"
+            />
+            <ellipse
+              cx="74"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#F05272"
+              transform="rotate(337.5,74,172)"
+            />
+            <circle cx="74" cy="172" r="8" fill="#A01C34" />
+            <circle cx="74" cy="172" r="4" fill="#C02840" opacity=".6" />
+          </g>
+        </g>
+
+        <!-- ── CARNATION 2 ── -->
+        <g class="c2">
+          <path
+            class="stem"
+            d="M163,260 C160,238 126,213 118,148"
+            fill="none"
+            stroke="#4E7242"
+            stroke-width="2.8"
+            stroke-linecap="round"
+          />
+          <path
+            class="leaf"
+            d="M136,208 C120,200 113,186 124,180"
+            fill="none"
+            stroke="#639A52"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            class="leaf"
+            d="M147,190 C154,180 156,168 147,163"
+            fill="none"
+            stroke="#639A52"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <g class="flower">
+            <ellipse
+              cx="118"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#D03858"
+              transform="rotate(0,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#E04868"
+              transform="rotate(45,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#D03858"
+              transform="rotate(90,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#E04868"
+              transform="rotate(135,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#D03858"
+              transform="rotate(180,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#E04868"
+              transform="rotate(225,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#D03858"
+              transform="rotate(270,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#E04868"
+              transform="rotate(315,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#F06080"
+              transform="rotate(22.5,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#E04870"
+              transform="rotate(67.5,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#F06080"
+              transform="rotate(112.5,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#E04870"
+              transform="rotate(157.5,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#F06080"
+              transform="rotate(202.5,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#E04870"
+              transform="rotate(247.5,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#F06080"
+              transform="rotate(292.5,118,148)"
+            />
+            <ellipse
+              cx="118"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#E04870"
+              transform="rotate(337.5,118,148)"
+            />
+            <circle cx="118" cy="148" r="8" fill="#A82840" />
+            <circle cx="118" cy="148" r="4" fill="#C83858" opacity=".6" />
+          </g>
+        </g>
+
+        <!-- ── CARNATION 3 (center, tallest) ── -->
+        <g class="c3">
+          <path
+            class="stem"
+            d="M165,260 C165,245 164,205 164,132"
+            fill="none"
+            stroke="#4E7242"
+            stroke-width="2.8"
+            stroke-linecap="round"
+          />
+          <path
+            class="leaf"
+            d="M164,208 C147,200 140,185 152,179"
+            fill="none"
+            stroke="#639A52"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            class="leaf"
+            d="M164,186 C181,178 185,165 175,160"
+            fill="none"
+            stroke="#639A52"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <g class="flower">
+            <ellipse
+              cx="164"
+              cy="112"
+              rx="8"
+              ry="14"
+              fill="#BE1C30"
+              transform="rotate(0,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="112"
+              rx="8"
+              ry="14"
+              fill="#CE2840"
+              transform="rotate(45,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="112"
+              rx="8"
+              ry="14"
+              fill="#BE1C30"
+              transform="rotate(90,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="112"
+              rx="8"
+              ry="14"
+              fill="#CE2840"
+              transform="rotate(135,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="112"
+              rx="8"
+              ry="14"
+              fill="#BE1C30"
+              transform="rotate(180,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="112"
+              rx="8"
+              ry="14"
+              fill="#CE2840"
+              transform="rotate(225,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="112"
+              rx="8"
+              ry="14"
+              fill="#BE1C30"
+              transform="rotate(270,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="112"
+              rx="8"
+              ry="14"
+              fill="#CE2840"
+              transform="rotate(315,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="117"
+              rx="6"
+              ry="10.5"
+              fill="#E03050"
+              transform="rotate(22.5,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="117"
+              rx="6"
+              ry="10.5"
+              fill="#D02040"
+              transform="rotate(67.5,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="117"
+              rx="6"
+              ry="10.5"
+              fill="#E03050"
+              transform="rotate(112.5,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="117"
+              rx="6"
+              ry="10.5"
+              fill="#D02040"
+              transform="rotate(157.5,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="117"
+              rx="6"
+              ry="10.5"
+              fill="#E03050"
+              transform="rotate(202.5,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="117"
+              rx="6"
+              ry="10.5"
+              fill="#D02040"
+              transform="rotate(247.5,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="117"
+              rx="6"
+              ry="10.5"
+              fill="#E03050"
+              transform="rotate(292.5,164,132)"
+            />
+            <ellipse
+              cx="164"
+              cy="117"
+              rx="6"
+              ry="10.5"
+              fill="#D02040"
+              transform="rotate(337.5,164,132)"
+            />
+            <circle cx="164" cy="132" r="9" fill="#980C20" />
+            <circle cx="164" cy="132" r="4.5" fill="#B81C30" opacity=".7" />
+          </g>
+        </g>
+
+        <!-- ── CARNATION 4 ── -->
+        <g class="c4">
+          <path
+            class="stem"
+            d="M167,260 C170,238 207,213 214,148"
+            fill="none"
+            stroke="#4E7242"
+            stroke-width="2.8"
+            stroke-linecap="round"
+          />
+          <path
+            class="leaf"
+            d="M196,208 C210,200 218,186 206,180"
+            fill="none"
+            stroke="#639A52"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            class="leaf"
+            d="M183,190 C176,180 174,168 183,163"
+            fill="none"
+            stroke="#639A52"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <g class="flower">
+            <ellipse
+              cx="214"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#D03858"
+              transform="rotate(0,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#E04868"
+              transform="rotate(45,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#D03858"
+              transform="rotate(90,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#E04868"
+              transform="rotate(135,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#D03858"
+              transform="rotate(180,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#E04868"
+              transform="rotate(225,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#D03858"
+              transform="rotate(270,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="130"
+              rx="7"
+              ry="13"
+              fill="#E04868"
+              transform="rotate(315,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#F06080"
+              transform="rotate(22.5,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#E04870"
+              transform="rotate(67.5,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#F06080"
+              transform="rotate(112.5,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#E04870"
+              transform="rotate(157.5,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#F06080"
+              transform="rotate(202.5,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#E04870"
+              transform="rotate(247.5,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#F06080"
+              transform="rotate(292.5,214,148)"
+            />
+            <ellipse
+              cx="214"
+              cy="134"
+              rx="5.5"
+              ry="9.5"
+              fill="#E04870"
+              transform="rotate(337.5,214,148)"
+            />
+            <circle cx="214" cy="148" r="8" fill="#A82840" />
+            <circle cx="214" cy="148" r="4" fill="#C83858" opacity=".6" />
+          </g>
+        </g>
+
+        <!-- ── CARNATION 5 (far right) ── -->
+        <g class="c5">
+          <path
+            class="stem"
+            d="M168,260 C172,242 240,222 258,172"
+            fill="none"
+            stroke="#4E7242"
+            stroke-width="2.8"
+            stroke-linecap="round"
+          />
+          <path
+            class="leaf"
+            d="M224,222 C240,213 248,200 237,193"
+            fill="none"
+            stroke="#639A52"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            class="leaf"
+            d="M208,208 C200,198 197,185 208,181"
+            fill="none"
+            stroke="#639A52"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <g class="flower">
+            <ellipse
+              cx="258"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#CB2440"
+              transform="rotate(0,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#D83050"
+              transform="rotate(45,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#CB2440"
+              transform="rotate(90,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#D83050"
+              transform="rotate(135,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#CB2440"
+              transform="rotate(180,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#D83050"
+              transform="rotate(225,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#CB2440"
+              transform="rotate(270,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="154"
+              rx="7"
+              ry="13"
+              fill="#D83050"
+              transform="rotate(315,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#E84062"
+              transform="rotate(22.5,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#F05272"
+              transform="rotate(67.5,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#E84062"
+              transform="rotate(112.5,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#F05272"
+              transform="rotate(157.5,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#E84062"
+              transform="rotate(202.5,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#F05272"
+              transform="rotate(247.5,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#E84062"
+              transform="rotate(292.5,258,172)"
+            />
+            <ellipse
+              cx="258"
+              cy="158"
+              rx="5.5"
+              ry="9.5"
+              fill="#F05272"
+              transform="rotate(337.5,258,172)"
+            />
+            <circle cx="258" cy="172" r="8" fill="#A01C34" />
+            <circle cx="258" cy="172" r="4" fill="#C02840" opacity=".6" />
+          </g>
+        </g>
+      </svg>
+
+      <!-- ═══ Envelope + Letter Section ═══ -->
+      <div class="letter-section">
+        <p class="hint" id="hint">✉ 편지를 클릭해서 열어보세요</p>
+
+        <div class="env-shell" id="envShell" onclick="openLetter()">
+          <!-- Flap (3D opens) -->
+          <div class="flap-perspective">
+            <div class="flap" id="flap">
+              <svg viewBox="0 0 370 78" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,0 370,0 185,74" fill="#DCC8A0" />
+                <polygon
+                  points="0,0 370,0 185,74"
+                  fill="none"
+                  stroke="#C8B080"
+                  stroke-width=".8"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Envelope body -->
+          <div class="env-body" id="envBody">
+            <!-- Wax seal -->
+            <div class="seal" id="seal">
+              <svg
+                width="62"
+                height="62"
+                viewBox="0 0 62 62"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="31"
+                  cy="31"
+                  r="29"
+                  fill="#B01828"
+                  stroke="#880E18"
+                  stroke-width="1.5"
+                />
+                <circle
+                  cx="31"
+                  cy="31"
+                  r="23"
+                  fill="none"
+                  stroke="#D83848"
+                  stroke-width=".8"
+                  stroke-dasharray="3 3"
+                />
+                <text
+                  x="31"
+                  y="39"
+                  text-anchor="middle"
+                  font-size="26"
+                  fill="#FFD0D8"
+                >
+                  ♥
+                </text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Envelope bottom V -->
+          <svg
+            class="env-bottom"
+            viewBox="0 0 370 68"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon points="0,0 185,65 370,0 370,68 0,68" fill="#F0E4C8" />
+            <line
+              x1="0"
+              y1="0"
+              x2="185"
+              y2="65"
+              stroke="#D8C898"
+              stroke-width=".8"
+            />
+            <line
+              x1="370"
+              y1="0"
+              x2="185"
+              y2="65"
+              stroke="#D8C898"
+              stroke-width=".8"
+            />
+          </svg>
+
+          <!-- Letter slip — below envelope, grows downward on click -->
+          <div class="letter-slip-wrap" id="letterSlipWrap">
+            <div class="letter-slip">
+              <div class="letter-slip-inner" id="letterInner">
+                <div class="l-deco"></div>
+                <p class="l-date">2026년 5월 8일 어버이날</p>
+                <p class="l-greeting">사랑하는 어머니께</p>
+                <div class="l-body">
+                  <p>어버이날을 맞아 짧게나마<br />이렇게 편지를 씁니다.</p>
+                  <p>
+                    언제나 제 뒤에서 묵묵히 응원해 주시고<br />제가 올바른 길로
+                    걸어갈 수 있도록<br />든든한 버팀목이 되어주셔서 진심으로
+                    감사드려요.
+                  </p>
+                  <p>
+                    말로는 다 표현할 수 없는 감사함을<br />이 작은 카네이션에
+                    담아 전합니다.
+                  </p>
+                  <p>
+                    두 분의 사랑과 희생 덕분에<br />지금의 제가 있을 수
+                    있었습니다.
+                  </p>
+                  <p>항상 건강하시고<br />군대 건강하게 다녀올게요.</p>
+                </div>
+                <div class="l-closing">
+                  <p>사랑합니다, 늘 감사해요 <span class="l-heart">♥</span></p>
+                  <br />
+                  <p>아들 올림</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let opened = false;
+
+      function openLetter() {
+        if (opened) return;
+        opened = true;
+
+        const shell = document.getElementById("envShell");
+        const hint = document.getElementById("hint");
+
+        hint.style.opacity = "0";
+
+        // Open flap + trigger CSS transition on letter-slip-wrap (max-height expand)
+        shell.classList.add("open");
+
+        // Letter text fades in after the paper has expanded enough
+        setTimeout(() => {
+          const inner = document.getElementById("letterInner");
+          inner.style.transitionDelay = "0s";
+        }, 600);
+
+        // Remove cursor after animation completes
+        setTimeout(() => {
+          shell.style.cursor = "default";
+        }, 1400);
+      }
+    </script>
+  </body>
+</html>
